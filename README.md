@@ -11,7 +11,7 @@ Essa classe só funcionara se você tiver o driver do `MySQL` , no teu projecto.
 ## Exemplo
 O arquivo na raiz `MySqlUsingClass.cs`, é apenas uma ilustração de como isso funcionária.
 
-Na linha `12` do mesmo `var dbConnection = DBConnection.Instance();`. Presta atenção que eu não usei o new para criar uma instância da classe, porque o metodo `Instace()` é estatico e é apartir dele que é feita a instancia da classe :-). Após a instancia ser feita o retorno ficará na variavel `dbConnection`, e isso me possibilita controlar quantas instâncias existem, fechar elas e sem dizer que não vou precisar sempre criar uma instância quando uma tarefa for executada.
+Na linha `12` do mesmo `var dbConnection = DBConnection.Instance();`. Presta atenção que eu não usei o `new` para criar uma instância da classe, porque o metodo `Instace()` é estatico e é apartir dele que é feita a instancia da classe :-). Após a instancia ser feita o retorno ficará na variavel `dbConnection`, e isso me possibilita controlar quantas instâncias existem, fechar elas e sem dizer que não vou precisar sempre criar uma instância quando uma tarefa for executada.
 
 
 ## Refs
