@@ -8,7 +8,10 @@ namespace MysqlHelp
         
         public static void Main()
         {
+            // Abrindo instancia da conexão
             var dbConnection = DBConnection.Instance();
+
+            // Fornecendo os dados
             dbConnection.Server = "localhost";
             dbConnection.DatabaseName = "Testing";
 
