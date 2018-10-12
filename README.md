@@ -6,7 +6,7 @@ Essa classe se encontra dentro da pasta  `DAO`.
 
 ### Atenção
 
-Essa classe só funcionara se você tiver o driver do `MySQL` , no teu projecto. Neste caso o Driver é o `MySql.Data.dll`, você pode adicionar ele indo em referências e logo depois cliar no browser para procurar por ela.
+Essa classe só funcionara se você tiver o driver do `MySQL` , no teu projecto. Neste caso o Driver é o `MySql.Data.dll`, você pode adicionar ele indo em referências e logo depois clicar no browser para procurar por ela.
 
 ## Exemplo
 O arquivo na raiz `MySqlUsingClass.cs`, é apenas uma ilustração de como isso funcionária.
