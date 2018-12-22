@@ -1,70 +1,47 @@
-/*
-    Primeiro passo use namespace do MySql - Afinal você quer trabalhar com ele, não é mesmo?
-
-*/
-using MySql.Data;
 using MySql.Data.MySqlClient;
 
-namespace MysqlHelp.DAO
+namespace ConsoleApplication.DAO
 {
-    public class DBConnection
+    public class MysqlConnectionClass
     {
         // Gosto de deixar claro o construtor mas podes apagar
-        private DBConnection()
+        private MysqlConnectionClass()
         {
         }
 
         // Defina as variaveis que você vai precisar
-        private string server = string.Empty;
-        private string databaseName = string.Empty;
-        private string userName = "root"; // Essa propriedade é interna do objecto então aconselho a não expor de forma publica
-        private string pwd = "";// Essa propriedade é interna do objecto então aconselho a não expor de forma publica
 
-        private MySqlConnection connection = null;
-        private static DBConnection _instance = null;
+        private const string UserName = "root"; // Essa propriedade é interna do objecto então aconselho a não expor de forma publica
+        private const string Pwd = ""; // Essa propriedade é interna do objecto então aconselho a não expor de forma publica
 
-        public string Password { get; set; }
+        private static MysqlConnectionClass _instance;
 
         // Encapsule as variaveis server, databaseName e connection
-        public string Server
-        {
-            get { return server; }
-            set { server = value; }
-        }
-        public string DatabaseName
-        {
-            get { return databaseName; }
-            set { databaseName = value; }
-        }
+        public string Server { private get; set; } = string.Empty;
 
-        public MySqlConnection Connection
-        {
-            get { return connection; }
-        }
+        public string DatabaseName { private get; set; } = string.Empty;
+
+        public MySqlConnection Connection { get; private set; }
 
         // Esse metodo cria a instacia da conexão (Atenção Deixei o metodo STATIC )
-        public static DBConnection Instance()
+        public static MysqlConnectionClass Instance()
         {
-            if (_instance == null)
-                _instance = new DBConnection();
-           return _instance;
+            return _instance ?? (_instance = new MysqlConnectionClass());
         }
 
         // Este metodo verifica se está conectado... Se não abri a conexão , do contrario só retorna positivo
         public bool IsConnect()
         {
-            // A conexão é nula?
-            if (Connection == null)
-            {
-                // o nome da base de dados está vazia ou nula? Isso é uma guarda, se você quiser poder expor ela num metodo e utiliza-lo aqui
-                if (String.IsNullOrEmpty(databaseName))
-                    return false;
+            // A conexão não é nula?
+            if (Connection != null) return true;
+            // o nome da base de dados está vazia ou nula? Isso é uma guarda, se você quiser poder expor ela num metodo e utiliza-lo aqui
+            if (string.IsNullOrEmpty(DatabaseName))
+                return false;
                 
-                // String de conexão
-                string connstring = string.Format("Server={0}; database={10}; UID={2}; password={3}",server, databaseName, userName, pwd);
-                connection = new MySqlConnection(connstring);
-                connection.Open();
-            }
+            // String de conexão
+            var connstring = $"Server={Server}; database={DatabaseName}; UID={UserName}; password={Pwd}";
+            Connection = new MySqlConnection(connstring);
+            Connection.Open();
 
             return true;
         }
@@ -72,9 +49,10 @@ namespace MysqlHelp.DAO
         // Este metodo fecha a conexão
         public void Close()
         {
-            connection.Close();
+            Connection.Close();
         }
 
         // Até aqui? De boa?       
     }
-}
+
+ }
