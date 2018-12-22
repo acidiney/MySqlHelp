@@ -1,34 +1,33 @@
-// Use two namespaces creted
-using MysqlHelp.DAO;
+using System;
+using ConsoleApplication.DAO;
+using MySql.Data.MySqlClient;
 
-namespace MysqlHelp
+namespace ConsoleApplication
 {
-    class Program
+    internal static class Program
     {
-        
-        public static void Main()
+        public static void Main(string[] args)
         {
             // Abrindo instancia da conexão
-            var dbConnection = DBConnection.Instance();
+            var dbConnection = MysqlConnectionClass.Instance();
 
             // Fornecendo os dados
             dbConnection.Server = "localhost";
             dbConnection.DatabaseName = "Testing";
 
-            if (dbConnection.IsConnect())
+            if (!dbConnection.IsConnect()) return;
+            
+            //Supondo que name e email são campos da tabela users na base de dados (VARCHAR)
+            const string query = "SELECT name,email FROM users";
+            var cmd = new MySqlCommand(query, dbConnection.Connection);
+            var reader = cmd.ExecuteReader();
+            while(reader.Read())
             {
-                //Supondo que name e email são campos da tabela users na base de dados (VARCHAR)
-                string query = "SELECT name,email FROM users";
-                var cmd = new MySqlCommand(query, dbConnection.Connection);
-                var reader = cmd.ExecuteReader();
-                while(reader.Read())
-                {
-                    string someStringFromName = reader.GetString(0);
-                    string someStringFromEmail = reader.GetString(1);
-                    Console.WriteLine(someStringFromName + "," + someStringFromEmail);
-                }
-                dbConnection.Close();
+                var someStringFromName = reader.GetString(0);
+                var someStringFromEmail = reader.GetString(1);
+                Console.WriteLine(someStringFromName + " - " + someStringFromEmail);
             }
+            dbConnection.Close();
         }   
     }
 }
