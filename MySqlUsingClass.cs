@@ -1,8 +1,8 @@
 using System;
-using ConsoleApplication.DAO;
+using MySqlUsingClass.DAO;
 using MySql.Data.MySqlClient;
 
-namespace ConsoleApplication
+namespace MySqlUsingClass
 {
     internal static class Program
     {
