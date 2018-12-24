@@ -1,6 +1,6 @@
 using MySql.Data.MySqlClient;
 
-namespace ConsoleApplication.DAO
+namespace MySqlUsingClass.DAO
 {
     public class MysqlConnectionClass
     {
